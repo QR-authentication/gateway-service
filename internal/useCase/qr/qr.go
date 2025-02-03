@@ -22,9 +22,7 @@ func New(qC QRService) *Usecase {
 }
 
 func (uc *Usecase) GenerateQRCode(r *http.Request) (*qrproto.CreateQROut, error) {
-	//uuid := r.Context().Value(config.KeyUUID).(string)
 	uuid := r.URL.Query().Get("uuid")
-	//uuid := "d5fe8f16-9bff-485b-a45b-c114bb0706f7"
 
 	ip, _, err := net.SplitHostPort(r.RemoteAddr)
 	if err != nil {
