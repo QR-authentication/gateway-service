@@ -3,10 +3,10 @@ module github.com/QR-authentication/gateway-service
 go 1.23.0
 
 require (
+	github.com/QR-authentication/metrics-lib v0.0.0-20250204214804-9686f04dd241
 	github.com/QR-authentication/qr-proto v0.0.2
 	github.com/go-chi/chi/v5 v5.2.0
 	github.com/ilyakaznacheev/cleanenv v1.5.0
-	gocv.io/x/gocv v0.40.0
 	google.golang.org/grpc v1.70.0
 )
 

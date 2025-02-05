@@ -8,7 +8,6 @@ import (
 
 type Config struct {
 	Service  Service
-	Auth     Auth
 	QR       QR
 	Metrics  Metrics
 	Platform Platform
@@ -16,11 +15,7 @@ type Config struct {
 
 type Service struct {
 	Port string `env:"GATEWAY_SERVICE_PORT"`
-}
-
-type Auth struct {
-	Host string `env:"AUTH_SERVICE_HOST"`
-	Port string `env:"AUTH_SERVICE_PORT"`
+	Name string `env:"GATEWAY_SERVICE_NAME"`
 }
 
 type QR struct {
@@ -34,8 +29,7 @@ type Metrics struct {
 }
 
 type Platform struct {
-	Secret string `env:"SECRET_KEY"`
-	Env    string `env:"ENV"`
+	Env string `env:"ENV"`
 }
 
 func MustLoad() *Config {
