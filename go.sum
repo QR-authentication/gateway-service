@@ -1,5 +1,7 @@
 github.com/BurntSushi/toml v1.2.1 h1:9F2/+DoOYIOksmaJFPw1tGFy1eDnIJXg+UHjuD8lTak=
 github.com/BurntSushi/toml v1.2.1/go.mod h1:CxXYINrC8qIiEnFrOxCa7Jy5BFHlXnUU2pbicEuybxQ=
+github.com/QR-authentication/metrics-lib v0.0.0-20250204214804-9686f04dd241 h1:q+uAsxWXOGCblcnEsX2o0X1qgy7C4wUsRNvoxsjGu9g=
+github.com/QR-authentication/metrics-lib v0.0.0-20250204214804-9686f04dd241/go.mod h1:2uPvp8bLrpTjlvqS27iZR9BosH9+zB/PaByxD8GJ8YY=
 github.com/QR-authentication/qr-proto v0.0.2 h1:vbYw4nyU5Es8l5k599cmksTtFJCj1BIPBEL0nZxUy2w=
 github.com/QR-authentication/qr-proto v0.0.2/go.mod h1:G2cXaaip1jrC/LtN3Fk4z+MvSZtkotTnOysxU77OmaU=
 github.com/go-chi/chi/v5 v5.2.0 h1:Aj1EtB0qR2Rdo2dG4O94RIU35w2lvQSj6BRA4+qwFL0=
@@ -28,8 +30,6 @@ go.opentelemetry.io/otel/sdk/metric v1.32.0 h1:rZvFnvmvawYb0alrYkjraqJq0Z4ZUJAiy
 go.opentelemetry.io/otel/sdk/metric v1.32.0/go.mod h1:PWeZlq0zt9YkYAp3gjKZ0eicRYvOh1Gd+X99x6GHpCQ=
 go.opentelemetry.io/otel/trace v1.32.0 h1:WIC9mYrXf8TmY/EXuULKc8hR17vE+Hjv2cssQDe03fM=
 go.opentelemetry.io/otel/trace v1.32.0/go.mod h1:+i4rkvCraA+tG6AzwloGaCtkx53Fa+L+V8e9a7YvhT8=
-gocv.io/x/gocv v0.40.0 h1:kGBu/UVj+dO6A9dhQmGOnCICSL7ke7b5YtX3R3azdXI=
-gocv.io/x/gocv v0.40.0/go.mod h1:zYdWMj29WAEznM3Y8NsU3A0TRq/wR/cy75jeUypThqU=
 golang.org/x/net v0.32.0 h1:ZqPmj8Kzc+Y6e0+skZsuACbx+wzMgo5MQsJh9Qd6aYI=
 golang.org/x/net v0.32.0/go.mod h1:CwU0IoeOlnQQWJ6ioyFrfRuomB8GKF6KbYXZVyeXNfs=
 golang.org/x/sys v0.28.0 h1:Fksou7UEQUWlKvIdsqzJmUmCX3cZuD2+P3XyyzwMhlA=
