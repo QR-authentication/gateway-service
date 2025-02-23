@@ -6,9 +6,12 @@ import (
 	"net/http"
 
 	"github.com/QR-authentication/gateway-service/internal/config"
-	"github.com/QR-authentication/gateway-service/internal/handler/api"
+	"github.com/QR-authentication/gateway-service/internal/handlers/api"
+	authhandler "github.com/QR-authentication/gateway-service/internal/handlers/auth"
 	"github.com/QR-authentication/gateway-service/internal/middlewares"
+	"github.com/QR-authentication/gateway-service/internal/rpc/auth"
 	"github.com/QR-authentication/gateway-service/internal/rpc/qr"
+	authusecase "github.com/QR-authentication/gateway-service/internal/useCase/auth"
 	qrusecase "github.com/QR-authentication/gateway-service/internal/useCase/qr"
 	metrics_lib "github.com/QR-authentication/metrics-lib"
 	"github.com/go-chi/chi/v5"
@@ -23,10 +26,13 @@ func main() {
 	}
 	defer metrics.Disconnect()
 
+	authClient := auth.NewService(cfg)
 	qrClient := qr.NewService(cfg)
 
+	authUseCase := authusecase.New(authClient)
 	qrUseCase := qrusecase.New(qrClient)
 
+	authHandlers := authhandler.New(cfg, authUseCase)
 	apiHandlers := api.New(qrUseCase)
 
 	r := chi.NewRouter()
@@ -35,7 +41,8 @@ func main() {
 		return middlewares.MetricMiddleware(next, metrics)
 	})
 
-	api.AttachApiRoutes(r, apiHandlers)
+	authhandler.AttachAuthRoutes(r, authHandlers)
+	api.AttachApiRoutes(r, apiHandlers, cfg)
 
 	log.Println("Server was started...")
 

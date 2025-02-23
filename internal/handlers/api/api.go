@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/QR-authentication/gateway-service/internal/config"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -54,8 +55,12 @@ func (h *Handler) VerifyAccess(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write(jsn)
 }
 
-func AttachApiRoutes(r chi.Router, handler *Handler) {
+func AttachApiRoutes(r chi.Router, handler *Handler, cfg *config.Config) {
 	r.Route("/api", func(apiRouter chi.Router) {
+		apiRouter.Use(func(next http.Handler) http.Handler {
+			return CheckJWT(next, cfg)
+		})
+
 		apiRouter.Get("/qr", handler.GenerateQRCode)
 		apiRouter.Post("/qr", handler.VerifyAccess)
 	})
