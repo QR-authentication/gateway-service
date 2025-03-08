@@ -7,6 +7,6 @@ import (
 )
 
 type QRService interface {
-	CreateQR(ctx context.Context, uuid, ip string) (*qrproto.CreateQROut, error)
+	CreateQR(ctx context.Context, ip string) (*qrproto.CreateQROut, error)
 	VerifyAccess(ctx context.Context, token string) (*qrproto.VerifyQROut, error)
 }
