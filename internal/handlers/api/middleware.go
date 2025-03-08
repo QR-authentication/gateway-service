@@ -10,7 +10,6 @@ import (
 	"github.com/golang-jwt/jwt/v4"
 
 	"github.com/QR-authentication/gateway-service/internal/config"
-	"github.com/QR-authentication/gateway-service/internal/model"
 )
 
 func CheckJWT(next http.Handler, cfg *config.Config) http.Handler {
@@ -24,7 +23,7 @@ func CheckJWT(next http.Handler, cfg *config.Config) http.Handler {
 			return
 		}
 
-		claims := &model.Claims{}
+		claims := &jwt.RegisteredClaims{}
 		token, err := jwt.ParseWithClaims(cookie.Value, claims, func(token *jwt.Token) (interface{}, error) {
 			if token.Method != jwt.SigningMethodHS256 {
 				return nil, fmt.Errorf("failed to unexpected signing method: %v", token.Header["alg"])
@@ -50,7 +49,7 @@ func CheckJWT(next http.Handler, cfg *config.Config) http.Handler {
 			return
 		}
 
-		ctx := context.WithValue(r.Context(), config.KeyUUID, claims.UUID)
+		ctx := context.WithValue(r.Context(), config.KeyUUID, claims.Subject)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
