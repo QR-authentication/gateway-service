@@ -9,8 +9,9 @@ import (
 	"net"
 	"net/http"
 
-	"github.com/QR-authentication/gateway-service/internal/model"
 	qrproto "github.com/QR-authentication/qr-proto/qr-proto"
+
+	"github.com/QR-authentication/gateway-service/internal/model"
 )
 
 type Usecase struct {

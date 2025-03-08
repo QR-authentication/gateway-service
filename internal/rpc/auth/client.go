@@ -5,12 +5,14 @@ import (
 	"fmt"
 	"log"
 
-	auth "github.com/QR-authentication/auth-proto/auth-proto"
-	"github.com/QR-authentication/gateway-service/internal/config"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/status"
+
+	auth "github.com/QR-authentication/auth-proto/auth-proto"
+
+	"github.com/QR-authentication/gateway-service/internal/config"
 )
 
 type Service struct {

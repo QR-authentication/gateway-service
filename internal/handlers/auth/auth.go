@@ -7,10 +7,12 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/QR-authentication/gateway-service/internal/config"
 	"github.com/go-chi/chi/v5"
+	"github.com/golang-jwt/jwt/v4"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+
+	"github.com/QR-authentication/gateway-service/internal/config"
 )
 
 type Handler struct {
@@ -96,9 +98,45 @@ func (h *Handler) Logout(w http.ResponseWriter, _ *http.Request) {
 	})
 }
 
+func (h *Handler) CheckJWT(w http.ResponseWriter, r *http.Request) {
+	cookie, err := r.Cookie("FA_AUTH_TOKEN")
+	if err != nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]bool{"valid": false})
+		return
+	}
+
+	token, err := jwt.Parse(cookie.Value, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, jwt.ErrSignatureInvalid
+		}
+		return []byte(h.SigningKey), nil
+	})
+
+	if err != nil {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]bool{"valid": false})
+		return
+	}
+
+	if !token.Valid {
+		w.Header().Set("Content-Type", "application/json")
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]bool{"valid": false})
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]bool{"valid": true})
+}
+
 func AttachAuthRoutes(r chi.Router, handler *Handler) {
 	r.Route("/auth", func(authRouter chi.Router) {
 		authRouter.Post("/login", handler.Login)
 		authRouter.Get("/logout", handler.Logout)
+		authRouter.Get("/check-jwt", handler.CheckJWT)
 	})
 }

@@ -5,16 +5,18 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/QR-authentication/gateway-service/internal/config"
-	"github.com/QR-authentication/gateway-service/internal/handlers/api"
+	"github.com/go-chi/chi/v5"
+
 	authhandler "github.com/QR-authentication/gateway-service/internal/handlers/auth"
-	"github.com/QR-authentication/gateway-service/internal/middlewares"
-	"github.com/QR-authentication/gateway-service/internal/rpc/auth"
-	"github.com/QR-authentication/gateway-service/internal/rpc/qr"
 	authusecase "github.com/QR-authentication/gateway-service/internal/useCase/auth"
 	qrusecase "github.com/QR-authentication/gateway-service/internal/useCase/qr"
 	metrics_lib "github.com/QR-authentication/metrics-lib"
-	"github.com/go-chi/chi/v5"
+
+	"github.com/QR-authentication/gateway-service/internal/config"
+	"github.com/QR-authentication/gateway-service/internal/handlers/api"
+	"github.com/QR-authentication/gateway-service/internal/middlewares"
+	"github.com/QR-authentication/gateway-service/internal/rpc/auth"
+	"github.com/QR-authentication/gateway-service/internal/rpc/qr"
 )
 
 func main() {

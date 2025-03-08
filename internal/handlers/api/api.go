@@ -5,8 +5,9 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/QR-authentication/gateway-service/internal/config"
 	"github.com/go-chi/chi/v5"
+
+	"github.com/QR-authentication/gateway-service/internal/config"
 )
 
 type Handler struct {

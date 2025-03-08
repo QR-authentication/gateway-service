@@ -1,14 +1,16 @@
 package api
 
 import (
+	"context"
 	"errors"
 	"fmt"
 	"log"
 	"net/http"
 
+	"github.com/golang-jwt/jwt/v4"
+
 	"github.com/QR-authentication/gateway-service/internal/config"
 	"github.com/QR-authentication/gateway-service/internal/model"
-	"github.com/golang-jwt/jwt/v4"
 )
 
 func CheckJWT(next http.Handler, cfg *config.Config) http.Handler {
@@ -48,7 +50,8 @@ func CheckJWT(next http.Handler, cfg *config.Config) http.Handler {
 			return
 		}
 
-		next.ServeHTTP(w, r)
+		ctx := context.WithValue(r.Context(), config.KeyUUID, claims.UUID)
+		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 

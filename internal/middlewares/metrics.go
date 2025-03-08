@@ -7,8 +7,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/QR-authentication/gateway-service/internal/config"
 	metrics_lib "github.com/QR-authentication/metrics-lib"
+
+	"github.com/QR-authentication/gateway-service/internal/config"
 )
 
 type statusRecorder struct {
