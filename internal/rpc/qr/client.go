@@ -47,6 +47,8 @@ func (s *Service) CreateQR(ctx context.Context, ip string) (*qrproto.CreateQROut
 }
 
 func (s *Service) VerifyAccess(ctx context.Context, token string) (*qrproto.VerifyQROut, error) {
+	ctx = metadata.NewOutgoingContext(ctx, metadata.Pairs("uuid", ctx.Value(config.KeyUUID).(string)))
+
 	req := qrproto.VerifyQRIn{
 		Token: token,
 	}
