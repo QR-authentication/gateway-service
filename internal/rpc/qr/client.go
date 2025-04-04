@@ -8,6 +8,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/metadata"
+	"google.golang.org/protobuf/types/known/emptypb"
 
 	qrproto "github.com/QR-authentication/qr-proto/qr-proto"
 
@@ -31,14 +32,10 @@ func NewService(cfg *config.Config) *Service {
 	return &Service{client: client}
 }
 
-func (s *Service) CreateQR(ctx context.Context, ip string) (*qrproto.CreateQROut, error) {
+func (s *Service) CreateQR(ctx context.Context) (*qrproto.CreateQROut, error) {
 	ctx = metadata.NewOutgoingContext(ctx, metadata.Pairs("uuid", ctx.Value(config.KeyUUID).(string)))
 
-	req := qrproto.CreateQRIn{
-		Ip: ip,
-	}
-
-	resp, err := s.client.CreateQR(ctx, &req)
+	resp, err := s.client.CreateQR(ctx, &emptypb.Empty{})
 	if err != nil {
 		return nil, fmt.Errorf("failed to create QR in rpc: %v", err)
 	}

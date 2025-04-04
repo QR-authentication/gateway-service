@@ -3,8 +3,6 @@ package qr
 import (
 	"encoding/json"
 	"fmt"
-	"log"
-	"net"
 	"net/http"
 
 	qrproto "github.com/QR-authentication/qr-proto/qr-proto"
@@ -21,12 +19,7 @@ func New(qC QRService) *Usecase {
 }
 
 func (uc *Usecase) GenerateQRCode(r *http.Request) (*qrproto.CreateQROut, error) {
-	ip, _, err := net.SplitHostPort(r.RemoteAddr)
-	if err != nil {
-		log.Println("failed to parse remote address:", err)
-	}
-
-	resp, err := uc.qC.CreateQR(r.Context(), ip)
+	resp, err := uc.qC.CreateQR(r.Context())
 	if err != nil {
 		return nil, fmt.Errorf("failed to create qr in usecase: %w", err)
 	}
