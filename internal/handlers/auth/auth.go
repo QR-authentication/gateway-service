@@ -16,11 +16,11 @@ import (
 )
 
 type Handler struct {
-	aS         UseCase
+	aS         AuthService
 	SigningKey string
 }
 
-func New(cfg *config.Config, aS UseCase) *Handler {
+func New(cfg *config.Config, aS AuthService) *Handler {
 	return &Handler{aS: aS, SigningKey: cfg.Platform.SigningKey}
 }
 
