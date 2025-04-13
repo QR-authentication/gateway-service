@@ -36,7 +36,7 @@ func (uc *Usecase) VerifyAccess(r *http.Request) (*qrproto.VerifyQROut, error) {
 	}
 	defer r.Body.Close()
 
-	resp, err := uc.qC.VerifyAccess(r.Context(), requestData.Token)
+	resp, err := uc.qC.VerifyAccess(r.Context(), requestData.Token, requestData.Action)
 	if err != nil {
 		return nil, fmt.Errorf("failed to check access in usecase: %w", err)
 	}

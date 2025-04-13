@@ -43,13 +43,13 @@ func (s *Service) CreateQR(ctx context.Context) (*qrproto.CreateQROut, error) {
 	return resp, nil
 }
 
-func (s *Service) VerifyAccess(ctx context.Context, token string) (*qrproto.VerifyQROut, error) {
+func (s *Service) VerifyAccess(ctx context.Context, token, action string) (*qrproto.VerifyQROut, error) {
 	ctx = metadata.NewOutgoingContext(ctx, metadata.Pairs("uuid", ctx.Value(config.KeyUUID).(string)))
 
 	req := qrproto.VerifyQRIn{
-		Token: token,
+		Token:  token,
+		Action: action,
 	}
-
 	resp, err := s.client.VerifyQR(ctx, &req)
 	if err != nil {
 		return nil, fmt.Errorf("failed to verify QR in rpc: %v", err)
